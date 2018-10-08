@@ -40,7 +40,7 @@ from keras.layers import GRU
 # Initialising the RNN
 regressor = Sequential()
 
-#Adding the input layer and the LSTM layer
+#Adding the input layer and the GRU layer
 regressor.add(GRU(units = 4, activation = 'sigmoid', input_shape = (1, 4)))
 
 #Adding the output layer
@@ -55,17 +55,17 @@ regressor.fit(X_train, y_train, batch_size = 32, epochs =200)
 
 # Part 3 - Making the predictions and visualising the results
 
-# Getting the real stock price of 2017
+# Getting the real stock price 
 dataset_test = pd.read_csv('testing.csv')
 rows_t, columns_t = dataset_test.shape
 real_stock_price = dataset_test.iloc[0:rows_t-1, 1:5].values
 real_stock_price_output = dataset_test.iloc[1:rows_t, 3:4].values
 real_stock_price_output_df = pd.DataFrame(real_stock_price_output)
 real_stock_price_output_df.to_csv('real_stock_price_output.csv')
-# Getting the predicted stock price of 2017
+
+# Getting the predicted stock price 
 inputs = real_stock_price
 inputs = sc.transform(inputs)
-#real_stock_price_output = inputs[:, 1:2]
 inputs = np.reshape(inputs, (rows_t-1, 1, 4))
 predicted_stock_price = regressor.predict(inputs)
 predicted_stock_price = sc.inverse_transform(predicted_stock_price)
@@ -83,7 +83,6 @@ plt.show()
 plt.savefig('fig.png')
 
 #Part 4 - Evaluating the RNN
-
 import math
 from sklearn.metrics import mean_squared_error
 mean_real_stock_price_output_df = real_stock_price_output_df.mean()
