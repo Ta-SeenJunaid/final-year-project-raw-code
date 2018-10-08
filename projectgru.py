@@ -85,8 +85,9 @@ plt.show()
 
 import math
 from sklearn.metrics import mean_squared_error
+mean_real_stock_price_output_df = real_stock_price_output_df.mean()
 rmse = math.sqrt(mean_squared_error(real_stock_price_output, predicted_stock_price))
-
+rmse_percentage = rmse/mean_real_stock_price_output_df
 
 
 
