@@ -80,6 +80,7 @@ plt.xlabel('Time')
 plt.ylabel('Stock Price')
 plt.legend()
 plt.show()
+plt.savefig('fig.png')
 
 #Part 4 - Evaluating the RNN
 
